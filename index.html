@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>แบบฟอร์มทดลองใช้งานระบบคุกกี้</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background-color: #f2f2f2;
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    form {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.08);
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 20px;
+    }
+    .description {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    input[type="checkbox"] {
+      margin-right: 8px;
+      width: auto;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-top: 25px;
+      width: 100%;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #otherInput {
+      display: none;
+    }
+    #responseMessage {
+      margin-top: 20px;
+      text-align: center;
+      color: green;
+    }
+
+    /* ✅ Popup Modal (ยืนยันเงื่อนไข) */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 600px;
+      text-align: left;
+      position: relative;
+    }
+    .modal-content h2 {
+      text-align: center;
+    }
+    .modal-content ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .modal-content ul li::before {
+      content: '✅ ';
+    }
+    .modal-content button {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    .modal-content .cancel {
+      background: #ccc;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>แบบฟอร์มทดลองใช้งานระบบคุกกี้</h1>
+
+ <form id="cookieForm">
+    <label>ชื่อ-นามสกุล (ภาษาไทยหรือภาษาอังกฤษ)*</label>
+    <div class="description">กรุณากรอกชื่อ-นามสกุลผู้ยื่นคำร้องให้ครบถ้วน เพื่อให้ทีมงานสามารถติดต่อกลับได้อย่างถูกต้อง</div>
+    <input type="text" name="fullname" required>
+
+    <label>ชื่อบริษัท/องค์กร*</label>
+    <div class="description">ระบุชื่อบริษัทหรือหน่วยงานของท่านที่ยื่นขอใช้สิทธิทดลองใช้งานระบบคุกกี้</div>
+    <input type="text" name="company" required>
+
+    <label>E-mail (ต้องเป็น E-mail ของหน่วยงาน / องค์กร เท่านั้น)*</label>
+    <div class="description">โปรดใช้อีเมลที่เป็นโดเมนขององค์กร เพื่อความถูกต้องในการยืนยันสิทธิ (ตัวอย่าง: yourname@company.com)</div>
+    <input type="email" name="email" required placeholder="yourname@company.com">
+
+    <label>เบอร์โทรศัพท์*</label>
+    <div class="description">กรุณาระบุเบอร์โทรศัพท์ที่สามารถติดต่อได้ หากทีมงานต้องการสอบถามข้อมูลเพิ่มเติม</div>
+    <input type="tel" name="phone" required>
+
+    <label>เว็บไซต์ที่ต้องการทดลองใช้งาน*</label>
+    <div class="description">ระบุ URL เว็บไซต์ที่ต้องการให้ระบบคุกกี้ทำงานบนเว็บไซต์นั้น</div>
+    <input type="url" name="website" required placeholder="https://yourwebsite.com">
+
+    <label>ช่องทางที่ท่านทราบข่าวสารของเรา*</label>
+    <div class="description">โปรดเลือกช่องทางที่ท่านพบข้อมูล (เลือกได้มากกว่า 1 ข้อ)</div>
+    <div>
+      <label><input type="checkbox" name="source" value="Facebook"> Facebook</label><br>
+      <label><input type="checkbox" name="source" value="E-book"> E-book</label><br>
+      <label><input type="checkbox" name="source" value="งานสัมมนา"> งานสัมมนา</label><br>
+      <label><input type="checkbox" name="source" value="Website"> Website</label><br>
+      <label><input type="checkbox" name="source" value="Other" id="otherCheckbox"> อื่น ๆ</label>
+      <input type="text" id="otherInput" placeholder="โปรดระบุ..." />
+    </div>
+
+    <button type="submit">ส่งข้อมูล</button>
+    <p id="responseMessage"></p>
+  </form>
+
+<!-- ✅ ป็อปอัปเงื่อนไขการใช้งาน -->
+<div id="termsModal" class="modal">
+  <div class="modal-content">
+    <h2>เงื่อนไขการใช้งาน</h2>
+    <ul>
+      <li>ขอสงวนสิทธิ์ในการลงทะเบียนเฉพาะผู้ที่ใช้อีเมลหน่วยงาน / องค์กร</li>
+      <li>ระยะเวลาทดลองใช้งาน 3 เดือน หากต้องการใช้งานต่อ กรุณาติดต่อเพื่อขอใบเสนอราคา</li>
+      <li>หากไม่มีการใช้งานในระบบภายใน 30 วัน ทีมงานขออนุญาตติดต่อเพื่อตรวจสอบปัญหา</li>
+      <li>เมื่อสิ้นสุดระยะเวลาทดลองใช้งาน 3 เดือน หากท่านไม่ประสงค์ใช้งานต่อ ทางทีมงานขอสงวนสิทธิ์ในการลบข้อมูลของท่านออกจากระบบ</li>
+    </ul>
+    <button onclick="submitConfirmed()">รับทราบและส่งข้อมูล</button>
+    <button class="cancel" onclick="closeTermsModal()">ยกเลิก</button>
+  </div>
+</div>
+
+<script>
+  const otherCheckbox = document.getElementById("otherCheckbox");
+  const otherInput = document.getElementById("otherInput");
+  const form = document.getElementById("cookieForm");
+  let pendingFormData = null;
+
+  otherCheckbox.addEventListener("change", function () {
+    otherInput.style.display = this.checked ? "block" : "none";
+  });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const sourceCheckboxes = document.querySelectorAll('input[name="source"]:checked');
+    let sources = Array.from(sourceCheckboxes).map(cb => cb.value);
+
+    if (sources.includes("Other") && otherInput.value.trim()) {
+      sources = sources.map(s => s === "Other" ? "Other: " + otherInput.value.trim() : s);
+    }
+
+    // เก็บข้อมูลไว้ชั่วคราวก่อนยืนยัน
+    pendingFormData = {
+      fullname: this.fullname.value,
+      company: this.company.value,
+      email: this.email.value,
+      phone: this.phone.value,
+      website: this.website.value,
+      source: sources.join(", ")
+    };
+
+    // เปิดกล่องเงื่อนไข
+    document.getElementById("termsModal").style.display = "block";
+  });
+
+  function closeTermsModal() {
+    document.getElementById("termsModal").style.display = "none";
+    pendingFormData = null;
+  }
+
+  function submitConfirmed() {
+    document.getElementById("termsModal").style.display = "none";
+
+    fetch("https://script.google.com/macros/s/AKfycbxdUZguxupn7c4zwNBZIsJnHlrzPiEcjy2CT70zdbsKLdkNa2cZ_SLYk1gKWawIWyf9EA/exec", {
+      method: "POST",
+      body: JSON.stringify(pendingFormData)
+    })
+    .then(res => res.text())
+    .then(msg => {
+      form.reset();
+      otherInput.style.display = "none";
+      document.getElementById("responseMessage").innerText = "✅ ลงทะเบียนสำเร็จเรียบร้อยแล้ว";
+    })
+    .catch(() => {
+      document.getElementById("responseMessage").innerText = "เกิดข้อผิดพลาดในการส่งข้อมูล";
+    });
+
+    pendingFormData = null;
+  }
+</script>
+
+</body>
+</html>
